@@ -1,6 +1,18 @@
 import blog from 'content/blog'
+import { useRouter } from 'next/router'
 
-const BlogIndex = ({ data }) => {
+const BlogPost = ({ data }) => {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
+
+  // if (!data) {
+  //   console.log(data)
+  //   return null
+  // }
+
   return (
     <div>
       <h1>{data.title}</h1>
@@ -11,11 +23,12 @@ const BlogIndex = ({ data }) => {
 
 export async function getStaticPaths() {
   const paths = blog.map((item) => {
+    const { slug, locale } = item
     return {
       params: {
-        slug: item.slug,
+        slug,
       },
-      locale: 'zh',
+      locale,
     }
   })
 
@@ -24,8 +37,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { slug } = params
-  const data = blog.find((post) => post.slug === slug)
-
+  const data = blog.find((post) => post.slug === encodeURI(slug))
+  // console.log({ slug })
+  // console.log('data', data)
   return {
     props: {
       data,
@@ -33,4 +47,4 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export default BlogIndex
+export default BlogPost
