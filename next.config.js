@@ -7,11 +7,11 @@ module.exports = {
     return [
       {
         source: '/%e5%8d%9a%e5%ae%a2',
-        destination: 'en/blog',
+        destination: '/en/blog',
       },
       {
         source: '/%e5%8d%9a%e5%ae%a2/:slug*',
-        destination: 'en/blog/:slug*',
+        destination: '/en/blog/:slug*',
       },
     ]
   },
