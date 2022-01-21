@@ -8,10 +8,9 @@ const BlogPost = ({ data }) => {
     return <div>Loading...</div>
   }
 
-  // if (!data) {
-  //   console.log(data)
-  //   return null
-  // }
+  if (!data) {
+    return null
+  }
 
   return (
     <div>
